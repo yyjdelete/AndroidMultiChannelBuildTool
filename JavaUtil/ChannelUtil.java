@@ -148,8 +148,8 @@ public class ChannelUtil {
 		editor.putInt(CHANNEL_LAST_VERSION_KEY, getVersionCode(context));
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD)
 			editor.putLong(CHANNEL_LAST_UPDATE_TIME, getLastUpdateTime(context));
-		if (TextUtils.isEmpty(sp.getString(CHANNEL_INSTALL_VERSION_KEY, "")))
-			editor.putString(CHANNEL_INSTALL_VERSION_KEY, channel);
+		if (TextUtils.isEmpty(sp.getString(CHANNEL_INSTALL_KEY, "")))
+			editor.putString(CHANNEL_INSTALL_KEY, channel);
 		editor.commit();
 	}
 	/**
