@@ -174,7 +174,7 @@ public class ChannelUtil {
 				//不匹配或之前没有正确的时间
 				return false;
 			}
-			long lastUpdateTimeSaved = sp.getInt(CHANNEL_LAST_UPDATE_TIME, -1);
+			long lastUpdateTimeSaved = sp.getLong(CHANNEL_LAST_UPDATE_TIME, -1);
 			if(lastUpdateTime != lastUpdateTimeSaved) {
 				//已
 				return false;
