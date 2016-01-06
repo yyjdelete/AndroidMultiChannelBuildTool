@@ -3,6 +3,7 @@
 import zipfile
 import shutil
 import os
+#import time
 
 pkg_id = "czt"
 # 获取当前目录中所有的apk源包
@@ -23,6 +24,7 @@ f.close()
 for src_apk in src_apks:
     # file name (with extension)
     src_apk_file_name = os.path.basename(src_apk)
+    print ">Input %s" % src_apk_file_name
     # 分割文件名与后缀
     temp_list = os.path.splitext(src_apk_file_name)
     # name without extension
@@ -41,9 +43,13 @@ for src_apk in src_apks:
         # 获取当前渠道号，因为从渠道文件中获得带有\n,所有strip一下
         target_channel = line.strip().decode('utf-8')
         # 拼接对应渠道号的apk
-        target_apk = output_dir + src_apk_name + "-" + target_channel + src_apk_extension  
-        # 拷贝建立新apk
-        shutil.copy(src_apk,  target_apk)
+        target_apk = output_dir + src_apk_name + "-" + target_channel + src_apk_extension
+        #if os.path.exists(target_apk):
+        #    os.remove(target_apk)
+        # 拷贝建立新apk(不含权限)
+        shutil.copyfile(src_apk, target_apk)
+        ## 休眠100ms
+        #time.sleep(0.1)
         # zip获取新建立的apk文件
         zipped = zipfile.ZipFile(target_apk, 'a', zipfile.ZIP_DEFLATED)
         # 初始化渠道信息
@@ -52,3 +58,5 @@ for src_apk in src_apks:
         zipped.writestr(empty_channel_file, target_channel.encode('utf-8'))
         # 关闭zip流
         zipped.close()
+        print ">>Output %s" % target_apk
+    os.system("pause")
